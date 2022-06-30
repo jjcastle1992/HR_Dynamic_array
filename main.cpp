@@ -16,7 +16,20 @@ vector<string> split(const string &);
  */
 
 vector<int> dynamicArray(int n, vector<vector<int>> queries) {
+    //Declare spec variables
+    vector<vector<int>> arr (n, vector<int>());
+    vector<int> answers;
+    int lastAnswer = 0;
+    //Query Types:
+    //  1. 1 x y
+    //      1a. idx = ((x ^ lastAnswer) % n)
+    //      1b. set y = arr [idx]
+    //  2. 2 x y
+    //      2a. idx = ((x ^ lastAnswer) % n)
+    //      2b. set lastAnswer = arr [idx][ y % size (arr [idx] ) ]
+    //      2c. push lastAnswer onto answers vector.
 
+    return answers;
 }
 
 int main()
