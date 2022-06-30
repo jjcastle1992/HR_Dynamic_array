@@ -20,14 +20,35 @@ vector<int> dynamicArray(int n, vector<vector<int>> queries) {
     vector<vector<int>> arr (n, vector<int>());
     vector<int> answers;
     int lastAnswer = 0;
-    //Query Types:
-    //  1. 1 x y
-    //      1a. idx = ((x ^ lastAnswer) % n)
-    //      1b. set y = arr [idx]
-    //  2. 2 x y
-    //      2a. idx = ((x ^ lastAnswer) % n)
-    //      2b. set lastAnswer = arr [idx][ y % size (arr [idx] ) ]
-    //      2c. push lastAnswer onto answers vector.
+
+    for (int row = 0; row < queries.size(); row++) {
+        int index = -1;
+        int queryType = queries[row][0];
+        int x = queries [row][1];
+        int y = queries [row][2];
+        //Query Types:
+        switch (queryType) {
+            //  1. 1 x y
+            //      1a. idx = ((x ^ lastAnswer) % n)
+            //      1b. push y arr [idx]
+            case 1:
+                index = ((x ^ lastAnswer) % n);
+                arr[index].push_back(y);
+                break;
+            //  2. 2 x y
+            //      2a. idx = ((x ^ lastAnswer) % n)
+            //      2b. set lastAnswer = arr [idx][ y % size (arr [idx] ) ]
+            //      2c. push lastAnswer onto answers vector.
+            case 2:
+                index = ((x ^ lastAnswer) % n);
+                lastAnswer = arr [index] [(y % arr[index].size())];
+                answers.push_back(lastAnswer);
+                break;
+            default:
+                std::cout << "ERROR in Switch: invalid queryType" << std::endl;
+                break;
+        }
+    }
 
     return answers;
 }
